@@ -1,5 +1,8 @@
 package org.tago.microservices.web;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +37,12 @@ public class FrontService extends SpringBootServletInitializer {
         return application.sources(FrontService.class);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(FrontService.class, args);
     }
 
     @RequestMapping("/")
-    public InternalServiceDto index() {
+    public InternalServiceDto index() throws Exception {
         // ToDo: bad, fix in a Spring way
         if (internalService == null) {
             internalService = InternalServiceFactoryImpl.getInternalService();
