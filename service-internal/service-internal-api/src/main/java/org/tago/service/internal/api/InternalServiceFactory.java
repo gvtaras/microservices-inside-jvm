@@ -7,7 +7,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public abstract class InternalServiceFactory {
 
-    public static InternalService getInstance() {
+    public static InternalService getInstance() throws Exception {
         throw new NotImplementedException();
     }
 }
