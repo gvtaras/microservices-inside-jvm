@@ -36,7 +36,7 @@ public class FrontService extends SpringBootServletInitializer {
     }
 
     @Bean
-    private RmiProxyFactoryBean rmiProxyFactoryBean() {
+    RmiProxyFactoryBean rmiProxyFactoryBean() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
         rmiProxyFactory.setServiceUrl("rmi://localhost:1099/InternalService");
         rmiProxyFactory.setServiceInterface(InternalService.class);
