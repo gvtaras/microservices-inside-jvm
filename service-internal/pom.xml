@@ -18,6 +18,7 @@
         <module>service-internal-server</module>
         <module>service-internal-client-http</module>
         <module>service-internal-client-jvm</module>
+        <module>service-internal-client-rmi</module>
     </modules>
 
 </project>

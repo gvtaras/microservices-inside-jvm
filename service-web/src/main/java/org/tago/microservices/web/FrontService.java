@@ -8,14 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tago.service.internal.api.InternalService;
 import org.tago.service.internal.api.InternalServiceDto;
-import org.tago.service.internal.api.InternalServiceHolder;
-import org.tago.service.internal.client.InternalServiceFactoryImpl;
 
 /**
  * Created by gvtaras on 3/1/2018.
@@ -38,13 +35,31 @@ public class FrontService extends SpringBootServletInitializer {
         SpringApplication.run(FrontService.class, args);
     }
 
-    @RequestMapping("/")
-    public InternalServiceDto index() {
-        // ToDo: bad, fix in a Spring way
-        if (internalService == null) {
-            internalService = InternalServiceFactoryImpl.getInternalService();
-        }
-        LOG.warn("TEST variable: " + System.getProperty("TEST"));
-        return internalService.getSomeValue();
+    @Bean
+    private RmiProxyFactoryBean rmiProxyFactoryBean() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/InternalService");
+        rmiProxyFactory.setServiceInterface(InternalService.class);
+        return rmiProxyFactory;
     }
+
+    @RequestMapping("/obj")
+    public InternalServiceDto getObj(@Autowired RmiProxyFactoryBean rmiProxyFactoryBean) {
+        return ((InternalService) rmiProxyFactoryBean().getObject()).getSomeObjValue();
+    }
+
+    @RequestMapping("/str")
+    public String getString(@Autowired RmiProxyFactoryBean rmiProxyFactoryBean) {
+        return ((InternalService) rmiProxyFactoryBean().getObject()).getSomeTextValue();
+    }
+
+//    @RequestMapping("/")
+//    public InternalServiceDto index() {
+//        // ToDo: bad, fix in a Spring way
+//        if (internalService == null) {
+//            internalService = InternalServiceFactoryImpl.getInternalService();
+//        }
+//        LOG.warn("TEST variable: " + System.getProperty("TEST"));
+//        return internalService.getSomeValue();
+//    }
 }

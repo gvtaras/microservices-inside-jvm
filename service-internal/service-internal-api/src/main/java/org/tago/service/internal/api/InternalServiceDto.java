@@ -1,9 +1,11 @@
 package org.tago.service.internal.api;
 
+import java.io.Serializable;
+
 /**
  * Created by gvtaras on 3/1/2018.
  */
-public class InternalServiceDto {
+public class InternalServiceDto implements Serializable {
 
     private final long id;
     private final String value;
