@@ -5,7 +5,7 @@ package org.tago.service.internal.api;
  */
 public interface InternalService {
 
-    InternalServiceDto getSomeObjValue();
+    ResponceDto getSomeObjValue(RequestDto request);
 
     String getSomeTextValue();
 

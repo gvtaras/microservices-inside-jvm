@@ -5,19 +5,19 @@ import java.io.Serializable;
 /**
  * Created by gvtaras on 3/1/2018.
  */
-public class InternalServiceDto implements Serializable {
+public class RequestDto implements Serializable {
 
     private final long id;
     private final String value;
 
-    public InternalServiceDto(long id, String value) {
+    public RequestDto(long id, String value) {
         this.id = id;
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return "InternalServiceDto{" +
+        return "RequestDto{" +
                 "id=" + id +
                 ", value='" + value + '\'' +
                 '}';

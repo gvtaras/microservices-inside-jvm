@@ -8,9 +8,11 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tago.service.internal.api.InternalService;
-import org.tago.service.internal.api.InternalServiceDto;
+import org.tago.service.internal.api.RequestDto;
+import org.tago.service.internal.api.ResponceDto;
 
 /**
  * Created by gvtaras on 3/1/2018.
@@ -28,9 +30,9 @@ public class MainConfig extends SpringBootServletInitializer {
         return application.sources(MainConfig.class);
     }
 
-    @RequestMapping("/obj")
-    public InternalServiceDto getObject() {
-        return server.getSomeObjValue();
+    @RequestMapping(value = "/obj", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponceDto getObject(RequestDto requestDto) {
+        return server.getSomeObjValue(requestDto);
     }
 
     @RequestMapping("/str")

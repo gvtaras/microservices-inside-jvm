@@ -1,7 +1,6 @@
 package org.tago.service.internal.client;
 
 import org.tago.service.internal.api.InternalService;
-import org.tago.service.internal.api.InternalServiceDto;
 import org.tago.service.internal.api.InternalServiceFactory;
 import org.tago.service.internal.api.InternalServiceHolder;
 

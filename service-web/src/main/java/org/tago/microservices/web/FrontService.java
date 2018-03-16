@@ -1,5 +1,7 @@
 package org.tago.microservices.web;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,8 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tago.service.internal.api.InternalService;
-import org.tago.service.internal.api.InternalServiceDto;
+import org.tago.service.internal.api.RequestDto;
+import org.tago.service.internal.api.ResponceDto;
 
 /**
  * Created by gvtaras on 3/1/2018.
@@ -25,6 +28,8 @@ public class FrontService extends SpringBootServletInitializer {
     private Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private InternalService internalService;
+
+    private Random random = new Random();
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -44,8 +49,9 @@ public class FrontService extends SpringBootServletInitializer {
     }
 
     @RequestMapping("/obj")
-    public InternalServiceDto getObj(@Autowired RmiProxyFactoryBean rmiProxyFactoryBean) {
-        return ((InternalService) rmiProxyFactoryBean().getObject()).getSomeObjValue();
+    public ResponceDto getObj(@Autowired RmiProxyFactoryBean rmiProxyFactoryBean) {
+        RequestDto request = new RequestDto(random.nextLong(), "Request from service-web");
+        return ((InternalService) rmiProxyFactoryBean().getObject()).getSomeObjValue(request);
     }
 
     @RequestMapping("/str")
@@ -54,7 +60,7 @@ public class FrontService extends SpringBootServletInitializer {
     }
 
 //    @RequestMapping("/")
-//    public InternalServiceDto index() {
+//    public ResponceDto index() {
 //        // ToDo: bad, fix in a Spring way
 //        if (internalService == null) {
 //            internalService = InternalServiceFactoryImpl.getInternalService();

@@ -1,7 +1,8 @@
 package org.tago.service.internal.client;
 
 import org.tago.service.internal.api.InternalService;
-import org.tago.service.internal.api.InternalServiceDto;
+import org.tago.service.internal.api.RequestDto;
+import org.tago.service.internal.api.ResponceDto;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -10,7 +11,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class InternalServiceImpl implements InternalService {
 
     @Override
-    public InternalServiceDto getSomeObjValue() {
+    public ResponceDto getSomeObjValue(RequestDto requestDto) {
         throw new NotImplementedException();
     }
 
